@@ -9,4 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 class ExternalController {
     @GetMapping
     fun index() = "web/home"
+
+    @GetMapping("/login")
+    fun login() = "web/login"
 }
