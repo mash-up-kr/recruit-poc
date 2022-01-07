@@ -16,3 +16,8 @@ spring:
             token_uri: https://kauth.kakao.com/oauth/token
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user_name_attribute: id
+toast:
+  sms:
+    url: https://api-sms.cloud.toast.com/
+    app-key: ENC(11Kl6+9yu9j0TosdlBvl/lC9IDJ3FTSnNbtKfZKsj3pQRKdM5WkBSQJw5w6aNz+zV35RFGvM4z9ftAozO8s3vQ==)
+    secret-key: ENC(Bdxz9MBYBfMQnsmIA2sFJtNHQjjZOMNrH9HJ3ydrego/Xm5hcbZAk74lVCaMjaXZ)
