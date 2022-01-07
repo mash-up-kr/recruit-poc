@@ -1,4 +1,4 @@
-package kr.mashup.branding.recruitpoc.web.ui
+package kr.mashup.branding.recruitpoc.ui
 
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
