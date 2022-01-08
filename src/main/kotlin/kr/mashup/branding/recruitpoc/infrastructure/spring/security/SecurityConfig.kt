@@ -9,6 +9,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 class SecurityConfig : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity) {
+        http.authorizeRequests()
+            .antMatchers("/").permitAll()
+            .antMatchers("/web").permitAll()
+            .antMatchers("/web/login").permitAll()
+            .antMatchers("/web/teams").permitAll()
+            .anyRequest().hasAuthority("ROLE_USER")
         http.oauth2Login()
     }
 }
