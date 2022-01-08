@@ -1,6 +1,7 @@
 package kr.mashup.branding.recruitpoc.domain.application
 
 import kr.mashup.branding.recruitpoc.domain.BaseEntity
+import kr.mashup.branding.recruitpoc.domain.application.form.Question
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id

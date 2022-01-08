@@ -1,4 +1,4 @@
-package kr.mashup.branding.recruitpoc.domain.application
+package kr.mashup.branding.recruitpoc.domain.application.form
 
 import kr.mashup.branding.recruitpoc.domain.BaseEntity
 import kr.mashup.branding.recruitpoc.domain.team.Team
