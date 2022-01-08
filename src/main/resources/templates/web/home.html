@@ -6,24 +6,7 @@
 </head>
 <body>
 <h1>Hello, Web</h1>
-<table>
-    <thead>
-    <tr>
-        <td>name</td>
-        <td>description</td>
-        <td>link</td>
-    </tr>
-    </thead>
-    <tbody th:each="team : ${teams}">
-        <tr>
-            <td th:text="${team.name}"/>
-            <td th:text="${team.description}"/>
-            <td>
-                <a th:href="@{'web/teams/' + ${team.id}}">지원하기</a>
-            </td>
-        </tr>
-    </tbody>
-</table>
 
+<a href="/web/teams">팀 목록 보기</a>
 </body>
 </html>
