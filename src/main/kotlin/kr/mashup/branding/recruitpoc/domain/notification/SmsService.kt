@@ -1,4 +1,4 @@
-package kr.mashup.branding.recruitpoc.domain
+package kr.mashup.branding.recruitpoc.domain.notification
 
 interface SmsService {
     fun sendSms(sender: String, recipients: List<String>, message: String)

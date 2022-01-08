@@ -1,4 +1,4 @@
-package kr.mashup.branding.recruitpoc.domain
+package kr.mashup.branding.recruitpoc.domain.notification
 
 import java.lang.RuntimeException
 

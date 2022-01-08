@@ -1,7 +1,7 @@
 package kr.mashup.branding.recruitpoc.infrastructure.toast
 
-import kr.mashup.branding.recruitpoc.domain.FailedToSendMessageException
-import kr.mashup.branding.recruitpoc.domain.SmsService
+import kr.mashup.branding.recruitpoc.domain.notification.FailedToSendMessageException
+import kr.mashup.branding.recruitpoc.domain.notification.SmsService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.ParameterizedTypeReference
 import org.springframework.http.HttpEntity
