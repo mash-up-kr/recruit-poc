@@ -1,16 +1,23 @@
 package kr.mashup.branding.recruitpoc.domain.team
 
+import kr.mashup.branding.recruitpoc.domain.BaseEntity
 import javax.persistence.Entity
+import javax.persistence.GeneratedValue
 import javax.persistence.Id
 
 @Entity
 class Team(
     @Id
-//    @GeneratedValue
+    @GeneratedValue
     val teamId: Long = 0L,
     val name: String,
     val description: String,
-) {
+) : BaseEntity() {
+    constructor(createTeamVo: CreateTeamVo) : this(
+        name = createTeamVo.name,
+        description = createTeamVo.description
+    )
+
     companion object {
         private val teams = listOf(
             Team(teamId = 1L, name = "디자인", description = "Design"),

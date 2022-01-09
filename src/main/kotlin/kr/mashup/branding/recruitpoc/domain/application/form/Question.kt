@@ -13,9 +13,12 @@ import javax.persistence.Id
 class Question(
     @Id
     @GeneratedValue
-    val questionId: String,
-    val teamId: String,
+    val questionId: Long = 0L,
     val content: String, // 질문 내용
     val description: String, // 몇자 이하, 이상 등의 조건 등 설명
 ) : BaseEntity() {
+    constructor(createQuestionVo: CreateQuestionVo) : this(
+        content = createQuestionVo.content,
+        description = createQuestionVo.description,
+    )
 }

@@ -11,7 +11,7 @@ import javax.persistence.*
 class ApplicationForm(
     @Id
     @GeneratedValue
-    val ApplicationForm: Long = 0L,
+    val applicationFormId: Long = 0L,
     @ManyToOne
     val team: Team,
     @OneToMany
