@@ -7,6 +7,10 @@
 <body>
 <h1>지원서 목록 보기</h1>
 
+<form action="#" th:action="@{/admin/applications/export}" method="post">
+    <p><input type="submit" value="엑셀로 내보내기" />
+</form>
+
 <h4>Questions</h4>
 <table>
     <thead>
