@@ -1,4 +1,4 @@
-package kr.mashup.branding.recruitpoc.application
+package kr.mashup.branding.recruitpoc.app
 
 import kr.mashup.branding.recruitpoc.domain.application.form.*
 import kr.mashup.branding.recruitpoc.domain.team.CreateTeamVo
@@ -16,7 +16,7 @@ class TestDataInitializer(
     @EventListener(ApplicationReadyEvent::class)
     fun handleApplicationReadyEvent() {
         val teams = createTeams()
-        val applicationForms = createApplicationForms(teams = teams)
+        createApplicationForms(teams = teams)
     }
 
     private fun createTeams(): List<Team> {
