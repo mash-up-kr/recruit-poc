@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional
 
 interface ApplicationService {
     fun createApplication(createApplicationVo: CreateApplicationVo): Application
+    fun getApplications(memberId: Long): List<Application>
+    fun getApplication(memberId: Long, applicationId: Long): Application
 }
 
 @Service
@@ -34,5 +36,19 @@ class ApplicationServiceImpl(
             },
         )
         return applicationRepository.save(application)
+    }
+
+    /**
+     * 특정 회원의 지원서 목록
+     */
+    override fun getApplications(memberId: Long): List<Application> {
+        return applicationRepository.findByMember_memberId(memberId)
+    }
+
+    override fun getApplication(memberId: Long, applicationId: Long): Application {
+        return applicationRepository.findByMember_memberIdAndApplicationId(
+            memberId = memberId,
+            applicationId = applicationId
+        ) ?: throw ApplicationNotFoundException()
     }
 }

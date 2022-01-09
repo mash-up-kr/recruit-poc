@@ -1,10 +1,9 @@
 package kr.mashup.branding.recruitpoc.ui
 
-import kr.mashup.branding.recruitpoc.domain.application.ApplicationService
-import kr.mashup.branding.recruitpoc.domain.application.CreateAnswerVo
-import kr.mashup.branding.recruitpoc.domain.application.CreateApplicationVo
+import kr.mashup.branding.recruitpoc.domain.application.*
 import kr.mashup.branding.recruitpoc.domain.application.form.ApplicationFormService
 import kr.mashup.branding.recruitpoc.domain.application.form.ApplicationFormVo
+import kr.mashup.branding.recruitpoc.domain.application.form.QuestionVo
 import kr.mashup.branding.recruitpoc.domain.member.MemberService
 import kr.mashup.branding.recruitpoc.domain.team.TeamService
 import kr.mashup.branding.recruitpoc.domain.team.TeamVo
@@ -65,9 +64,8 @@ class ExternalController(
         @ModelAttribute applicationRequestDto: ApplicationRequestDto,
         principal: Principal,
     ): String {
-        val kakaoMemberId = principal.name
-        val member = memberService.getOrCreate(kakaoMemberId)
-        applicationService.createApplication(
+        val member = memberService.getOrCreate(kakaoMemberId = principal.name)
+        val application = applicationService.createApplication(
             CreateApplicationVo(
                 memberId = member.memberId,
                 applicationFormId = applicationFormId,
@@ -79,6 +77,41 @@ class ExternalController(
                 }
             )
         )
-        return "web/home" // TODO: 내 지원서 페이지
+        return "redirect:/web/applications/${application.applicationId}"
     }
+
+    @GetMapping("/applications")
+    fun getApplications(
+        principal: Principal,
+        model: Model,
+    ): String {
+        val member = memberService.getOrCreate(kakaoMemberId = principal.name)
+        val applications = applicationService.getApplications(memberId = member.memberId)
+        val applicationResponseDtoList = applications.map { toApplicationResponseDto(it) }
+        model.addAttribute("applicationResponseDtoList", applicationResponseDtoList)
+        return "web/application/list"
+    }
+
+    @GetMapping("/applications/{applicationId}")
+    fun getApplication(
+        @PathVariable applicationId: Long,
+        principal: Principal,
+        model: Model,
+    ): String {
+        val member = memberService.getOrCreate(kakaoMemberId = principal.name)
+        val application = applicationService.getApplication(
+            memberId = member.memberId,
+            applicationId = applicationId
+        )
+        model.addAttribute("applicationResponseDto", toApplicationResponseDto(application))
+        return "web/application/detail"
+    }
+
+    private fun toApplicationResponseDto(application: Application): ApplicationResponseDto = ApplicationResponseDto(
+        applicationId = application.applicationId,
+        team = TeamVo(application.applicationForm.team),
+        questions = application.applicationForm.questions.map { QuestionVo(it) },
+        answers = application.answers.map { AnswerVo(it) },
+        createdAt = application.createdAt,
+    )
 }
