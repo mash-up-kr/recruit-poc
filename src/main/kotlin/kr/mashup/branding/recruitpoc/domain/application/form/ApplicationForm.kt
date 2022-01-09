@@ -13,7 +13,9 @@ class ApplicationForm(
     @GeneratedValue
     val applicationFormId: Long = 0L,
     @ManyToOne
+    @JoinColumn(name = "teamId")
     val team: Team,
     @OneToMany
+    @JoinColumn(name = "applicationFormId")
     val questions: List<Question> = mutableListOf(),
 ) : BaseEntity()

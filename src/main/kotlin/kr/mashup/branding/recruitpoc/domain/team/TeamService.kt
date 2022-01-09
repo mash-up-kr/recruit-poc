@@ -7,9 +7,11 @@ import org.springframework.transaction.annotation.Transactional
 interface TeamService {
     fun createTeam(createTeamVo: CreateTeamVo): Team
     fun getTeam(teamId: Long): Team
+    fun findAllTeams(): List<Team>
 }
 
 @Service
+@Transactional(readOnly = true)
 class TeamServiceImpl(
     private val teamRepository: TeamRepository,
 ) : TeamService {
@@ -21,5 +23,9 @@ class TeamServiceImpl(
     override fun getTeam(teamId: Long): Team {
         return teamRepository.findByIdOrNull(teamId)
             ?: throw TeamNotFoundException()
+    }
+
+    override fun findAllTeams(): List<Team> {
+        return teamRepository.findAll()
     }
 }

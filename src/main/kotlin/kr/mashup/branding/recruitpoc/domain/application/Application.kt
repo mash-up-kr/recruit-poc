@@ -14,14 +14,19 @@ import javax.persistence.*
 class Application(
     @Id
     @GeneratedValue
-    val applicationId: Long,
+    val applicationId: Long = 0L,
     @ManyToOne
+    @JoinColumn(name = "applicationFormId")
     val applicationForm: ApplicationForm,
     @ManyToOne
+    @JoinColumn(name = "memberId")
     val member: Member,
-    @OneToMany
+    @OneToMany(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "applicationId")
     val answers: List<Answer> = mutableListOf(),
-    var status: ApplicationStatus,
+    // TODO: 임시저장 없으면 상태 필요없음
+    @Enumerated(EnumType.STRING)
+    var status: ApplicationStatus = ApplicationStatus.COMPLETED,
 ) : BaseEntity() {
 
 }

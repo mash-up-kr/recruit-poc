@@ -1,22 +1,26 @@
 package kr.mashup.branding.recruitpoc.ui
 
-import kr.mashup.branding.recruitpoc.domain.team.Team
-import org.springframework.security.core.AuthenticatedPrincipal
-import org.springframework.security.core.Authentication
-import org.springframework.security.oauth2.client.web.method.annotation.OAuth2AuthorizedClientArgumentResolver
-import org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver
+import kr.mashup.branding.recruitpoc.domain.application.ApplicationService
+import kr.mashup.branding.recruitpoc.domain.application.CreateAnswerVo
+import kr.mashup.branding.recruitpoc.domain.application.CreateApplicationVo
+import kr.mashup.branding.recruitpoc.domain.application.form.ApplicationFormService
+import kr.mashup.branding.recruitpoc.domain.application.form.ApplicationFormVo
+import kr.mashup.branding.recruitpoc.domain.member.MemberService
+import kr.mashup.branding.recruitpoc.domain.team.TeamService
+import kr.mashup.branding.recruitpoc.domain.team.TeamVo
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.*
 import java.security.Principal
-import javax.servlet.http.HttpServlet
-import javax.servlet.http.HttpServletRequest
 
 @RequestMapping("/web")
 @Controller
-class ExternalController {
+class ExternalController(
+    private val memberService: MemberService,
+    private val teamService: TeamService,
+    private val applicationFormService: ApplicationFormService,
+    private val applicationService: ApplicationService,
+) {
     @GetMapping
     fun index(): String {
         return "web/home"
@@ -29,7 +33,8 @@ class ExternalController {
     fun teams(
         model: Model,
     ): String {
-        model.addAttribute("teams", Team.getTeams())
+        val teamVoList = teamService.findAllTeams().map { TeamVo(it) }
+        model.addAttribute("teams", teamVoList)
         return "web/team/list"
     }
 
@@ -41,7 +46,39 @@ class ExternalController {
     ): String {
         val kakaoMemberId = principal.name
         println(kakaoMemberId)
-        model.addAttribute("team", Team.getTeams().first { it.teamId == teamId })
+        val teamVo = TeamVo(teamService.getTeam(teamId))
+        val applicationFormVo = ApplicationFormVo(applicationFormService.getApplicationFormByTeamId(teamVo.teamId))
+        model.addAttribute("team", teamVo)
+        model.addAttribute("applicationForm", applicationFormVo)
+        // create empty applicationRequestDto
+        model.addAttribute("applicationRequestDto", ApplicationRequestDto(
+            answers = applicationFormVo.questions.map {
+                CreateAnswerDto(questionId = it.questionId, content = "")
+            }.toMutableList(),
+        ))
         return "web/team/detail"
+    }
+
+    @PostMapping("/application-forms/{applicationFormId}/applications")
+    fun submit(
+        @PathVariable applicationFormId: Long,
+        @ModelAttribute applicationRequestDto: ApplicationRequestDto,
+        principal: Principal,
+    ): String {
+        val kakaoMemberId = principal.name
+        val member = memberService.getOrCreate(kakaoMemberId)
+        applicationService.createApplication(
+            CreateApplicationVo(
+                memberId = member.memberId,
+                applicationFormId = applicationFormId,
+                createAnswerVoList = applicationRequestDto.answers!!.map {
+                    CreateAnswerVo(
+                        content = it.content!!,
+                        questionId = it.questionId!!,
+                    )
+                }
+            )
+        )
+        return "web/home" // TODO: 내 지원서 페이지
     }
 }

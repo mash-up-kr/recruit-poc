@@ -11,6 +11,49 @@
 
 <h3 th:text="${team.description}"></h3>
 
+<h4>Questions</h4>
+<table>
+    <thead>
+    <tr>
+        <td>Question Id</td>
+        <td>Question Content</td>
+        <td>Question Description</td>
+    </tr>
+    </thead>
+    <tbody th:each="question: ${applicationForm.questions}">
+    <tr>
+        <td th:text="${question.questionId}"></td>
+        <td th:text="${question.content}"></td>
+        <td th:text="${question.description}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<h4>Answer Form</h4>
+<form action="#"
+      th:action="@{|/web/application-forms/${applicationForm.applicationFormId}/applications|}"
+      th:object="${applicationRequestDto}"
+      method="post">
+    <fieldset>
+        <input type="submit" id="submitButton" th:value="Save">
+        <input type="reset" id="resetButton" name="reset" th:value="Reset"/>
+        <table>
+            <thead>
+            <tr>
+                <th>QuestionId</th>
+                <th>Content</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="answer, it : *{answers}">
+                <td><input readonly th:field="*{answers[__${it.index}__].questionId}"/></td>
+                <td><input th:field="*{answers[__${it.index}__].content}"/></td>
+            </tr>
+            </tbody>
+        </table>
+    </fieldset>
+</form>
+
 </body>
 </html>
 

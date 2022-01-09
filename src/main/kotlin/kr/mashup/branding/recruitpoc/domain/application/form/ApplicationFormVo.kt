@@ -4,12 +4,12 @@ import kr.mashup.branding.recruitpoc.domain.team.TeamVo
 
 data class ApplicationFormVo(
     val applicationFormId: Long,
-    val teamVo: TeamVo,
-    val questionVoList: List<QuestionVo>
+    val team: TeamVo,
+    val questions: List<QuestionVo>
 ) {
     constructor(applicationForm: ApplicationForm) : this(
         applicationFormId = applicationForm.applicationFormId,
-        teamVo = TeamVo(applicationForm.team),
-        questionVoList = applicationForm.questions.map { QuestionVo(it) },
+        team = TeamVo(applicationForm.team),
+        questions = applicationForm.questions.map { QuestionVo(it) },
     )
 }

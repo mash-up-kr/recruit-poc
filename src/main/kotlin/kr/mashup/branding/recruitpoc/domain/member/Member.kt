@@ -1,6 +1,7 @@
 package kr.mashup.branding.recruitpoc.domain.member
 
 import kr.mashup.branding.recruitpoc.domain.BaseEntity
+import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
@@ -9,6 +10,8 @@ import javax.persistence.Id
 class Member(
     @Id
     @GeneratedValue
-    val memberId: Long,
+    val memberId: Long = 0L,
     var name: String,
-): BaseEntity()
+    @Column(unique = true)
+    val kakaoMemberId: String,
+) : BaseEntity()
