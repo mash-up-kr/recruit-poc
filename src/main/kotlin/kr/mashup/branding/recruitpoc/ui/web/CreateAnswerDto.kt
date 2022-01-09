@@ -1,4 +1,4 @@
-package kr.mashup.branding.recruitpoc.ui
+package kr.mashup.branding.recruitpoc.ui.web
 
 data class CreateAnswerDto(
     var questionId: Long? = null,

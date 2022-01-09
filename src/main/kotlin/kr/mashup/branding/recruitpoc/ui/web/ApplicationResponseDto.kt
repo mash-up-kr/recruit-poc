@@ -1,4 +1,4 @@
-package kr.mashup.branding.recruitpoc.ui
+package kr.mashup.branding.recruitpoc.ui.web
 
 import kr.mashup.branding.recruitpoc.domain.application.AnswerVo
 import kr.mashup.branding.recruitpoc.domain.application.form.QuestionVo
