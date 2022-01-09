@@ -2,13 +2,16 @@ package kr.mashup.branding.recruitpoc.domain.application
 
 import kr.mashup.branding.recruitpoc.domain.application.form.ApplicationFormService
 import kr.mashup.branding.recruitpoc.domain.member.MemberService
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 interface ApplicationService {
     fun createApplication(createApplicationVo: CreateApplicationVo): Application
+    fun getAllApplication(): List<Application>
     fun getApplications(memberId: Long): List<Application>
     fun getApplication(memberId: Long, applicationId: Long): Application
+    fun getApplication(applicationId: Long): Application
 }
 
 @Service
@@ -38,6 +41,10 @@ class ApplicationServiceImpl(
         return applicationRepository.save(application)
     }
 
+    override fun getAllApplication(): List<Application> {
+        return applicationRepository.findAll()
+    }
+
     /**
      * 특정 회원의 지원서 목록
      */
@@ -50,5 +57,9 @@ class ApplicationServiceImpl(
             memberId = memberId,
             applicationId = applicationId
         ) ?: throw ApplicationNotFoundException()
+    }
+
+    override fun getApplication(applicationId: Long): Application {
+        return applicationRepository.findByIdOrNull(applicationId) ?: throw ApplicationNotFoundException()
     }
 }

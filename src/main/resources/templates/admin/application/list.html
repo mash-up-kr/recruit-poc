@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mash-Up Branding Recruit PoC</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>지원서 목록 보기</h1>
+
+<h4>Questions</h4>
+<table>
+    <thead>
+    <tr>
+        <td>Application Id</td>
+        <td>Team</td>
+        <td>CreatedAt</td>
+    </tr>
+    </thead>
+    <tbody th:each="applicationResponseDto: ${applicationResponseDtoList}">
+    <tr>
+        <td th:text="${applicationResponseDto.applicationId}"></td>
+        <td th:text="${applicationResponseDto.team.name}"></td>
+        <td th:text="${applicationResponseDto.createdAt}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
+
