@@ -1,4 +1,4 @@
-package kr.mashup.branding.recruitpoc.infrastructure
+package kr.mashup.branding.recruitpoc.infra
 
 import com.ulisesbocchio.jasyptspringboot.encryptor.DefaultLazyEncryptor
 import org.junit.jupiter.api.BeforeEach

@@ -1,4 +1,4 @@
-package kr.mashup.branding.recruitpoc.infrastructure.toast
+package kr.mashup.branding.recruitpoc.infra.toast
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

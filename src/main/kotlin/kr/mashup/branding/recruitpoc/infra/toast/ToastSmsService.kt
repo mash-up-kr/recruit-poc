@@ -1,4 +1,4 @@
-package kr.mashup.branding.recruitpoc.infrastructure.toast
+package kr.mashup.branding.recruitpoc.infra.toast
 
 import kr.mashup.branding.recruitpoc.domain.notification.FailedToSendMessageException
 import kr.mashup.branding.recruitpoc.domain.notification.SmsService

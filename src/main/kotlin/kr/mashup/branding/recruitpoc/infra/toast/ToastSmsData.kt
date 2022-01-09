@@ -1,4 +1,4 @@
-package kr.mashup.branding.recruitpoc.infrastructure.toast
+package kr.mashup.branding.recruitpoc.infra.toast
 
 data class ToastResponse<T>(
     val header: ToastResponseHeader,

@@ -1,4 +1,4 @@
-package kr.mashup.branding.recruitpoc.infrastructure.spring.security
+package kr.mashup.branding.recruitpoc.infra.spring.security
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity

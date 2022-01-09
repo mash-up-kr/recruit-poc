@@ -1,4 +1,4 @@
-package kr.mashup.branding.recruitpoc.infrastructure.toast
+package kr.mashup.branding.recruitpoc.infra.toast
 
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Disabled
